@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View 3</title>
+</head>
+<body>
+    <a th:href="@{/search(country=${search.country},person=${search.person},priceMin=${search.priceMin},priceMax=${search.priceMax})}">Back</a>
+     <!-- <a th:href="@{/search(country=${p1.p},person=${p2.p},priceMin=${p3.p},priceMax=${p4.p})}">Back</a> -->
+     <table data-th-object="${details}">
+        <tr>
+            <td>Id:</td>
+            <td colspan="2"><span data-th-text="*{id}"></span></td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td><span data-th-text="*{desc}"></span></td>
+            <td><img data-th-src="*{image}" width="100" height="60"></td>
+        </tr>
+        <tr>
+            <td >Address</td>
+            <td colspan="2">
+                <p data-th-text="*{street}"></p>
+                <p data-th-text="*{suburb}"></p>
+                <p data-th-text="*{country}"></p>
+            </td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td colspan="2"><span data-th-text="*{price}"></span></td>
+        </tr>
+        <tr>
+            <td>Amenities</td>
+            <td colspan="2"><span data-th-text="*{amenities}"></span></td>
+        </tr>
+    </table>
+    <br><br>
+    <h1>Bookings</h1>
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>Arrival:</td>
+            <td><input type="date"></td>
+        </tr>
+        <tr>
+            <td>Stay:</td>
+            <td><input type="text"> days</td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Book">
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

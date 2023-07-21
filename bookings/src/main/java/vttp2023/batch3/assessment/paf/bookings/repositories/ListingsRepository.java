@@ -15,6 +15,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import vttp2023.batch3.assessment.paf.bookings.models.Listing;
+import vttp2023.batch3.assessment.paf.bookings.utility.ListingsUtility;
 
 @Repository
 public class ListingsRepository {
@@ -37,6 +38,9 @@ public class ListingsRepository {
 
 	@Autowired
 	MongoTemplate mongoTemplate;
+
+	@Autowired
+	ListingsUtility utility;
 	
 	//TODO: Task 2
 
@@ -74,27 +78,42 @@ public class ListingsRepository {
 			Document.class);
 		List<Document> docList = results.getMappedResults();
 
-		List<Listing> list = new LinkedList<>();
-		for(Document d : docList) {
-			Listing l = new Listing();
-			l.setId(d.getString(A_ID));
-			l.setName(d.getString(A_NAME));
-			l.setDesc(d.getString(A_DESC));
-			l.setStreet(d.getString(A_STREET));
-			l.setSuburb(d.getString(A_SUBURB));
-			l.setCountry(d.getString(A_COUNTRY));
-			l.setImage(d.getString(A_URL));
-			l.setPrice(d.getDouble(A_PRICE));
-			l.setAmenities(d.getList(A_AMENITIES, String.class));
-
-			list.add(l);
-		}
-
-		return list;
+		return utility.getListingFromDocList(docList);
 	}
 
 
 	//TODO: Task 4
+
+	// db.listings.aggregate([
+	// 	{ $match: { _id: "16134812" }},
+	// 	{ $lookup: {
+	// 		from: "address", foreignField: "street", localField: "_id", as: "street"
+	// 	}},
+	// 	{ $project: { _id:1, description:1, street:1, "address.suburb":1, "address.country":1,
+	// 		name:1, price:1,  "images.picture_url":1, amenities:1}
+	// }])
+	public Listing getListingById(String id) {
+		// Criteria c = Criteria.where(A_ID).is(id);
+		// Query q = Query.query(c);
+
+		// List<Document> result = mongoTemplate.find(q, Document.class, C_LISTINGS);
+
+		MatchOperation match = Aggregation.match(
+			Criteria.where(A_ID).is(id)
+		);
+
+		ProjectionOperation project = Aggregation.project(
+			A_ID, A_NAME, A_DESC, A_ADDRESS_STREET, A_ADDRESS_SUBURB, A_ADDRESS_COUNTRY, 
+			A_PRICE, A_IMAGE_URL, A_AMENITIES
+		);
+
+		Aggregation pipeline = Aggregation.newAggregation(match, project);
+		AggregationResults<Document> results = mongoTemplate.aggregate(pipeline, C_LISTINGS, 
+			Document.class);
+		List<Document> docList = results.getMappedResults();
+
+		return utility.getListingFromDocList(docList).get(0);
+	}
 	
 
 	//TODO: Task 5

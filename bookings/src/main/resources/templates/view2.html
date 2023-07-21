@@ -18,13 +18,18 @@
             <td><span data-th-text="${l.name}"></td>
             <td><span data-th-text="${l.price}"></td>
             <td><img data-th-src="${l.image}" width="300" height="200"></td>
-            <!-- <td>
-                <form>
-                    <input type="submit" data-th-action="@{/details/(id = ${l.id})}" 
-                    value="Details" method="get">
+            <td>
+                <form data-th-action="@{/details/(id = ${l.id})}" method="post">
+                    <input type="submit" value="Details" >
                 </form>
-            </td> -->
+                <!-- <button type="submit" th:href="@{/details}">Details</button> -->
+            </td>
         </tr>
     </table>
+    <!-- <input type ="hidden" th:name="p1" th:object="${p1}" />
+    <input type ="hidden" th:name="p2" th:object="${p2}" />
+    <input type ="hidden" th:name="p3" th:object="${p3}" />
+    <input type ="hidden" th:name="p4" th:object="${p4}" /> -->
+    <input type ="hidden" th:name="search" th:value="${search}" />
 </body>
 </html>
