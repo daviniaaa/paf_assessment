@@ -3,12 +3,36 @@ package vttp2023.batch3.assessment.paf.bookings.models;
 import java.sql.Date;
 
 public class Booking {
+    private String resvId;
     private String name;
     private String email;
+    private String accId;
     private Date arrivalDate;
-    private String duration;
+    private int duration;
     public Booking() {
     }
+
+    
+    public String getResvId() {
+        return resvId;
+    }
+
+
+    public void setResvId(String resvId) {
+        this.resvId = resvId;
+    }
+
+
+    public String getAccId() {
+        return accId;
+    }
+
+
+    public void setAccId(String accId) {
+        this.accId = accId;
+    }
+
+
     public String getName() {
         return name;
     }
@@ -27,10 +51,10 @@ public class Booking {
     public void setArrivalDate(Date arrivalDate) {
         this.arrivalDate = arrivalDate;
     }
-    public String getDuration() {
+    public int getDuration() {
         return duration;
     }
-    public void setDuration(String duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 

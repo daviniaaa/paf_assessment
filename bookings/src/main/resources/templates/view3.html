@@ -37,28 +37,32 @@
     </table>
     <br><br>
     <h1>Bookings</h1>
-    <table>
-        <tr>
-            <td>Name:</td>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <td>Email:</td>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <td>Arrival:</td>
-            <td><input type="date"></td>
-        </tr>
-        <tr>
-            <td>Stay:</td>
-            <td><input type="text"> days</td>
-        </tr>
-        <tr>
-            <td>
-                <input type="submit" value="Book">
-            </td>
-        </tr>
-    </table>
+    <form data-th-object="${booking}" data-th-action="@{/reserve}" method="post">
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" data-th-field="*{name}"></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><input type="text" data-th-field="*{email}"></td>
+            </tr>
+            <tr>
+                <td>Arrival:</td>
+                <td><input type="date" data-th-field="*{arrivalDate}"></td>
+            </tr>
+            <tr>
+                <td>Stay:</td>
+                <td><input type="text" data-th-field="*{duration}"> days</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Book">
+                    <input type ="hidden" data-th-field="*{accId}" data-th-value="${details.id}" />
+                </td>
+            </tr>
+        </table>
+    </form>
+    
 </body>
 </html>

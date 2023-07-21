@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import vttp2023.batch3.assessment.paf.bookings.models.Booking;
 import vttp2023.batch3.assessment.paf.bookings.models.Listing;
+import vttp2023.batch3.assessment.paf.bookings.repositories.BookingRepository;
 import vttp2023.batch3.assessment.paf.bookings.repositories.ListingsRepository;
 
 @Service
@@ -17,6 +20,9 @@ public class ListingsService {
 
 	@Autowired
 	ListingsRepository repo;
+
+	@Autowired
+	BookingRepository bookRepo;
 	
 	//TODO: Task 2
 	public List<String> getCountries() {
@@ -38,6 +44,22 @@ public class ListingsService {
 	
 
 	//TODO: Task 5
+
+	@Transactional
+	public void book(Booking booking) {
+		String accId = booking.getAccId();
+		int vacancy = bookRepo.getVacancyById(accId);
+		int days = booking.getDuration();
+
+		if ( days > vacancy ) {
+			throw new IllegalArgumentException("No vacancy");
+		}
+
+		bookRepo.addBooking(booking, accId);
+
+		bookRepo.updateVacancy(days, accId);
+	}
+	
 
 
 }
