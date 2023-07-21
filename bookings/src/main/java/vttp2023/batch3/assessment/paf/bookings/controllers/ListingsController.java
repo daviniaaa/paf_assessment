@@ -51,6 +51,12 @@ public class ListingsController {
 
 		List<Listing> listings = listService.getPreviews(s.getCountry(), s.getPerson(), 
 			s.getPriceMin(), s.getPriceMax());
+
+		if (listings.isEmpty()) {
+			bind.rejectValue("priceRange", "error.priceRange",
+				"No listings available. Try different search queries?");
+			return "view1";
+		}
 		model.addAttribute("listings", listings);
 
 		return "view2";
@@ -62,6 +68,10 @@ public class ListingsController {
 	@PostMapping(path = "/details/")
 	public String getDetails(@RequestParam String id, Model model, Search search) {
 		Listing details = listService.getListingById(id);
+
+		if (details == null) {
+			return "task4error";
+		}
 
 		model.addAttribute("search", search);
 		model.addAttribute("details", details);
