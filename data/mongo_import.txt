@@ -1,0 +1,9 @@
+In localhost:
+mongoimport -h localhost --port 27017 -d accomodations -c listings --type=json listings.json
+
+To Railway:
+mongoimport
+    --uri "mongodb://mongo:rM9dCugfbbVNZCUl5K6t@containers-us-west-210.railway.app:6297/?authSource=admin"
+    -d accomodations -c listings 
+    --type=json 
+    listings.json

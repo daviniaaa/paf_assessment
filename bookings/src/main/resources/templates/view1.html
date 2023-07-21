@@ -18,16 +18,34 @@
                         data-th-text="${o}"></option>
 
                 </td>
+                <td>
+                    <span class="error" data-th-if="${#fields.hasErrors('country')}" 
+                    data-th-errors="*{country}" style="color: red"></span>
+                </td>
             </tr>
             <tr>
-                <td>Number of person:</td>
+                <td>Number of people:</td>
                 <td><input type="text" data-th-field="*{person}"></td>
+                <td>
+                    <span class="error" data-th-if="${#fields.hasErrors('person')}" 
+                    data-th-errors="*{person}" style="color: red"></span>
+                </td>
             </tr>
             <tr>
                 <td>Price Range:</td>
                 <td>
                     Min <input type="number" data-th-field="*{priceMin}"> 
-                    Max <input type="number" data-th-field="*{priceMin}">
+                    Max <input type="number" data-th-field="*{priceMax}">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <span class="error" data-th-if="${#fields.hasErrors('priceMin')}" 
+                        data-th-errors="*{priceMin}" style="color: red"></span>
+                    <span class="error" data-th-if="${#fields.hasErrors('priceMax')}" 
+                        data-th-errors="*{priceMax}" style="color: red"></span>
+                    <span class="error" data-th-if="${#fields.hasErrors('priceRange')}" 
+                        data-th-errors="*{priceRange}" style="color: red"></span>
                 </td>
             </tr>
             <tr>

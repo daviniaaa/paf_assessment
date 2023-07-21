@@ -8,13 +8,14 @@ import jakarta.validation.constraints.NotNull;
 public class Search {
     @NotNull @NotEmpty
     private String country;
-    @Min(value = 1) @Max(value = 10)
+    @Min(value = 1, message = "Min 1 person") @Max(value = 10, message = "Max 10 people")
     private int person;
-    @Min(value = 1) @Max(value = 10000)
+    @Min(value = 1, message = "Min $1") @Max(value = 10000, message = "Max $10000")
     private double priceMin;
-    @Min(value = 1) @Max(value = 10000)
+    @Min(value = 1, message = "Min $1") @Max(value = 10000, message = "Max $10000")
     private double priceMax;
-    
+    private double priceRange;
+
     public Search() {
     }
     public String getCountry() {
@@ -40,6 +41,12 @@ public class Search {
     }
     public void setPriceMax(double priceMax) {
         this.priceMax = priceMax;
+    }
+    public double getPriceRange() {
+        return priceRange;
+    }
+    public void setPriceRange(double priceRange) {
+        this.priceRange = priceRange;
     }
 
     
