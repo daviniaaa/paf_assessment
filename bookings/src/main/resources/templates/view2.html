@@ -6,6 +6,25 @@
     <title>View 2</title>
 </head>
 <body>
-    
+    <h1>Listings for <span data-th-text="${search.country}"></span></h1>
+    <table>
+        <tr>
+            <td>Name</td>
+            <td>Price</td>
+            <td>Image</td>
+            <td></td>
+        </tr>
+        <tr data-th-each="l : ${listings}" data-th-object="${l}">
+            <td><span data-th-text="${l.name}"></td>
+            <td><span data-th-text="${l.price}"></td>
+            <td><img data-th-src="${l.image}" width="300" height="200"></td>
+            <!-- <td>
+                <form>
+                    <input type="submit" data-th-action="@{/details/(id = ${l.id})}" 
+                    value="Details" method="get">
+                </form>
+            </td> -->
+        </tr>
+    </table>
 </body>
 </html>
