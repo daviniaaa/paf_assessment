@@ -13,6 +13,7 @@ import vttp2023.batch3.assessment.paf.bookings.models.Booking;
 import vttp2023.batch3.assessment.paf.bookings.models.Listing;
 import vttp2023.batch3.assessment.paf.bookings.repositories.BookingRepository;
 import vttp2023.batch3.assessment.paf.bookings.repositories.ListingsRepository;
+import vttp2023.batch3.assessment.paf.bookings.utility.BookingsUtility;
 
 @Service
 public class ListingsService {
@@ -23,6 +24,9 @@ public class ListingsService {
 
 	@Autowired
 	BookingRepository bookRepo;
+
+	@Autowired
+	BookingsUtility bookUtil;
 	
 	//TODO: Task 2
 	public List<String> getCountries() {
@@ -54,6 +58,9 @@ public class ListingsService {
 		if ( days > vacancy ) {
 			throw new IllegalArgumentException("No vacancy");
 		}
+
+		String resvId = bookUtil.generateUUID(8);
+		booking.setResvId(resvId);
 
 		bookRepo.addBooking(booking, accId);
 

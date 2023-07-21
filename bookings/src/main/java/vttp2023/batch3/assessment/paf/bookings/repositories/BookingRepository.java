@@ -3,6 +3,7 @@ package vttp2023.batch3.assessment.paf.bookings.repositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 import vttp2023.batch3.assessment.paf.bookings.models.Booking;
@@ -23,13 +24,16 @@ public class BookingRepository {
     BookingsUtility utility;
 
     public int getVacancyById(String id) {
-        return jdbcTemplate.queryForObject(SQL_GET_VACANCY, BeanPropertyRowMapper
-            .newInstance(Integer.class), id);
+        final SqlRowSet rs = jdbcTemplate.queryForRowSet(SQL_GET_VACANCY, id);
+        if (rs.next()) {
+            return rs.getInt("vacancy");
+        }
+        return 0;
     }
 
     public int addBooking(Booking booking, String accId ) {
         return jdbcTemplate.update(SQL_INSERT_BOOKING, 
-            utility.generateUUID(8), 
+            booking.getResvId(), 
             booking.getName(), 
             booking.getEmail(),
             accId,

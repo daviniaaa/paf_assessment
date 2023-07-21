@@ -62,11 +62,13 @@ public class ListingsController {
 	@PostMapping(path = "/details/")
 	public String getDetails(@RequestParam String id, Model model, Search search) {
 		Listing details = listService.getListingById(id);
-		
+
 		model.addAttribute("search", search);
 		model.addAttribute("details", details);
 
-		model.addAttribute("booking", new Booking());
+		Booking booking = new Booking();
+		booking.setAccId(id);
+		model.addAttribute("booking", booking);
 		return "view3";
 	}
 	
@@ -75,10 +77,14 @@ public class ListingsController {
 	@PostMapping(path = "/reserve")
 	public String reserve(Booking booking, Model model) {
 		Booking b = (Booking) model.getAttribute("booking");
-		System.out.println(b);
-		System.out.println(b.getAccId());
-		System.out.println(b.getEmail());
-		// listService.book(b);
+		// System.out.println(b);
+		// System.out.println(b.getAccId());
+		
+		listService.book(b);
+		// System.out.println(b.getResvId());
+
+		model.addAttribute("resvId", b.getResvId());
+		
 		return "view4";
 	}
 
