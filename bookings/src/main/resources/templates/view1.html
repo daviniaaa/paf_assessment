@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View 1</title>
+</head>
+<body>
+    <h1>Search Our Accomodations</h1>
+    <form data-th-object="${search}" data-th-action="@{/search}" method="get">
+        <table>
+            <tr>
+                <td>Country:</td>
+                <td>
+                    <select data-th-field="*{country}">
+                        <!-- <option value="${options[0]}" data-th-text="${options[0]}"></option> -->
+                        <option data-th-each="o : ${options}" data-th-value="${o}" 
+                        data-th-text="${o}"></option>
+
+                </td>
+            </tr>
+            <tr>
+                <td>Number of person:</td>
+                <td><input type="text" data-th-field="*{person}"></td>
+            </tr>
+            <tr>
+                <td>Price Range:</td>
+                <td>
+                    Min <input type="number" data-th-field="*{priceMin}"> 
+                    Max <input type="number" data-th-field="*{priceMin}">
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Search"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
